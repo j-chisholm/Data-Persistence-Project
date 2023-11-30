@@ -15,6 +15,8 @@ public class MenuHandler : MonoBehaviour
     {
         highScoreText.text = "HIGH SCORE!\n" +
             GameManager.Instance.highScoreHolder + ": " + GameManager.Instance.highScore;
+
+        playerNameInput.text = GameManager.Instance.lastKnownPlayer;
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class MenuHandler : MonoBehaviour
     public void StartNewGame()
     {
         //save currentPlayerName
-        GameManager.Instance.SaveCurrentPlayerName(playerNameInput.text.ToString());
+        GameManager.Instance.SaveLastKnownPlayerName(playerNameInput.text.ToString());
 
         SceneManager.LoadScene(1);
     }

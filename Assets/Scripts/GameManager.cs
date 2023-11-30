@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public string highScoreHolder = "N/A";
+    public string lastKnownPlayer = "N/A";
     public int highScore = 0;
-    public string currentPlayer = "N/A";
 
     private void Awake()
     {
@@ -30,25 +30,36 @@ public class GameManager : MonoBehaviour
     }
 
     //Store the currentPlayer's name
-    public void SaveCurrentPlayerName(string _currentPlayer)
+    public void SaveLastKnownPlayerName(string _lastKnownPlayer)
     {
-        currentPlayer = _currentPlayer;
+        lastKnownPlayer = _lastKnownPlayer;
     }
 
     //Data class to store player's name and score
     [System.Serializable]
     class Data
     {
-        public string playerName;
+        public string highSchoreHolder;
+        public string lastKnownPlayer;
         public int playerHighScore;
     }
 
     //Save data function to save the player's 
-    public void SaveHighScoreData(int _highScore)
+    public void SaveHighScoreData(int score)
     {
         Data playerData = new Data();
-        playerData.playerName = currentPlayer;
-        playerData.playerHighScore = _highScore;
+        if (score > highScore)
+        {
+            playerData.playerHighScore = score;
+            playerData.highSchoreHolder = lastKnownPlayer;
+        }
+        else
+        {
+            playerData.playerHighScore = highScore;
+            playerData.highSchoreHolder = highScoreHolder;
+        }
+
+        playerData.lastKnownPlayer = lastKnownPlayer;
 
         string json = JsonUtility.ToJson(playerData);
 
@@ -65,7 +76,8 @@ public class GameManager : MonoBehaviour
             string json = File.ReadAllText(path);
             Data playerData = JsonUtility.FromJson<Data>(json);
 
-            highScoreHolder = playerData.playerName;
+            highScoreHolder = playerData.highSchoreHolder;
+            lastKnownPlayer = playerData.lastKnownPlayer;
             highScore = playerData.playerHighScore;
         }
     }

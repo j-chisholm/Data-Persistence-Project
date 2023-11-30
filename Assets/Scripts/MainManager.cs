@@ -85,12 +85,9 @@ public class MainManager : MonoBehaviour
     //Update the current best score
     public void UpdateBestScore()
     {
-        //Sets new high score when game is over
-        if (m_Points > GameManager.Instance.highScore)
-        {
-            GameManager.Instance.SaveHighScoreData(m_Points);
-            GameManager.Instance.LoadHighScoreData();
-        }
+        //Update player data
+        GameManager.Instance.SaveHighScoreData(m_Points);
+        GameManager.Instance.LoadHighScoreData();
 
         BestScoreText.text = "Best Score-" +
             GameManager.Instance.highScoreHolder + ": " +
