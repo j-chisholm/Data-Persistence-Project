@@ -1,27 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class StartScreenManager : MonoBehaviour
+public class MenuHandler : MonoBehaviour
 {
     [SerializeField] Text highScoreText;
     [SerializeField] InputField playerNameInput;
 
-    private void Awake()
-    {
-
-        //highScoreText.text = "HIGH SCORE!\n" +
-          //  MainManager.Instance.playerName + ": " + MainManager.Instance.highScore;
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        highScoreText.text = "HIGH SCORE!\n" +
+            GameManager.Instance.highScoreHolder + ": " + GameManager.Instance.highScore;
     }
 
     // Update is called once per frame
@@ -32,6 +25,9 @@ public class StartScreenManager : MonoBehaviour
 
     public void StartNewGame()
     {
+        //save currentPlayerName
+        GameManager.Instance.SaveCurrentPlayerName(playerNameInput.text.ToString());
+
         SceneManager.LoadScene(1);
     }
 
