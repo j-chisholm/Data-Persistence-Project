@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance;
+
+    public string playerName;
+    public int highScore = 0;
+
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
@@ -18,7 +24,20 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        //LoadData();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +89,48 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        //Sets new high score when game is over
+        if (m_Points > highScore)
+        {
+            highScore = m_Points;
+        }
+
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
+    //Data class to store player's name and score
+    /*[System.Serializable]
+    class Data
+    {
+        public string playerName;
+        public int playerHighScore;
+    }
+
+    //Save data function to save the player's 
+    public void SaveData()
+    {
+        Data playerData = new Data();
+        playerData.playerName = playerName;
+        playerData.playerHighScore = highScore;
+
+        string json = JsonUtility.ToJson(playerData);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    //Load the player's saved data
+    public void LoadData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Data playerData = JsonUtility.FromJson<Data>(json);
+
+            playerName = playerData.playerName;
+            highScore = playerData.playerHighScore;
+        }
+    }*/
 }
