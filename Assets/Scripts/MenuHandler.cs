@@ -15,6 +15,8 @@ public class MenuHandler : MonoBehaviour
     {
         highScoreText.text = "HIGH SCORE!\n" +
             GameManager.Instance.highScoreHolder + ": " + GameManager.Instance.highScore;
+
+        Debug.Log(GameManager.Instance.highScoreHolder + ": " + GameManager.Instance.highScore);
     }
 
     // Update is called once per frame

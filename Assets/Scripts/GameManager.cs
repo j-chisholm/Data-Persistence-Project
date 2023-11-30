@@ -29,18 +29,6 @@ public class GameManager : MonoBehaviour
         LoadHighScoreData();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Store the currentPlayer's name
     public void SaveCurrentPlayerName(string _currentPlayer)
     {
@@ -56,11 +44,11 @@ public class GameManager : MonoBehaviour
     }
 
     //Save data function to save the player's 
-    public void SaveHighScoreData()
+    public void SaveHighScoreData(int _highScore)
     {
         Data playerData = new Data();
         playerData.playerName = currentPlayer;
-        playerData.playerHighScore = highScore;
+        playerData.playerHighScore = _highScore;
 
         string json = JsonUtility.ToJson(playerData);
 

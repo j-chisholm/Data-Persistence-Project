@@ -25,9 +25,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BestScoreText.text = "Best Score-" + 
-            GameManager.Instance.highScoreHolder + ": " +
-            GameManager.Instance.highScore;
+        UpdateBestScore();
 
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
@@ -65,6 +63,10 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+                //Update the best score after starting a new game
+                UpdateBestScore();
+
             }
         }
     }
@@ -80,10 +82,18 @@ public class MainManager : MonoBehaviour
         //Sets new high score when game is over
         if (m_Points > GameManager.Instance.highScore)
         {
-            GameManager.Instance.SaveHighScoreData();
+            GameManager.Instance.SaveHighScoreData(m_Points);
         }
 
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    //Update the current best score
+    public void UpdateBestScore()
+    {
+        BestScoreText.text = "Best Score-" +
+    GameManager.Instance.highScoreHolder + ": " +
+    GameManager.Instance.highScore;
     }
 }
