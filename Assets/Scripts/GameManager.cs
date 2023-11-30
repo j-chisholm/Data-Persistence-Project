@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     class Data
     {
-        public string highSchoreHolder;
+        public string highScoreHolder;
         public string lastKnownPlayer;
         public int playerHighScore;
     }
@@ -51,12 +51,12 @@ public class GameManager : MonoBehaviour
         if (score > highScore)
         {
             playerData.playerHighScore = score;
-            playerData.highSchoreHolder = lastKnownPlayer;
+            playerData.highScoreHolder = lastKnownPlayer;
         }
         else
         {
             playerData.playerHighScore = highScore;
-            playerData.highSchoreHolder = highScoreHolder;
+            playerData.highScoreHolder = highScoreHolder;
         }
 
         playerData.lastKnownPlayer = lastKnownPlayer;
