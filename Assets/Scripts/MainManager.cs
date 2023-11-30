@@ -62,10 +62,9 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-                //Update the best score after starting a new game
                 UpdateBestScore();
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
             }
         }
@@ -79,12 +78,6 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        //Sets new high score when game is over
-        if (m_Points > GameManager.Instance.highScore)
-        {
-            GameManager.Instance.SaveHighScoreData(m_Points);
-        }
-
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
@@ -92,8 +85,15 @@ public class MainManager : MonoBehaviour
     //Update the current best score
     public void UpdateBestScore()
     {
+        //Sets new high score when game is over
+        if (m_Points > GameManager.Instance.highScore)
+        {
+            GameManager.Instance.SaveHighScoreData(m_Points);
+            GameManager.Instance.LoadHighScoreData();
+        }
+
         BestScoreText.text = "Best Score-" +
-    GameManager.Instance.highScoreHolder + ": " +
-    GameManager.Instance.highScore;
+            GameManager.Instance.highScoreHolder + ": " +
+            GameManager.Instance.highScore;
     }
 }
