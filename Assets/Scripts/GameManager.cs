@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
             string json = File.ReadAllText(path);
             Data playerData = JsonUtility.FromJson<Data>(json);
 
-            highScoreHolder = playerData.highSchoreHolder;
+            highScoreHolder = playerData.highScoreHolder;
             lastKnownPlayer = playerData.lastKnownPlayer;
             highScore = playerData.playerHighScore;
         }
